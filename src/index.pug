@@ -1,11 +1,47 @@
-doctype html
-html(lang="en")
-  head
-    title= title
-    script(type='text/javascript').
-  body
-    h1 Pug - node template engine
-    #container.col
-      p.
-        Pug is a terse and simple templating language with a
-        strong focus on performance and powerful features.
+-
+  var BLOOD_TYPES = ["O−", "O+", "A−", "A+", "B−", "B+", "AB−", "AB+"];
+  
+mixin bloodSelector(value)
+  div= value
+
+mixin bloodTypeMixin(value, side)
+  .human(class=side)
+    .scribble
+      span.blood_type= value
+      .head
+      .body
+    .via
+    .blood_via
+
+#about
+  .mySocial
+    a.social(
+      href="https://www.linkedin.com/in/rominamartinlib/",
+      target="_new"
+    )
+      i.fab.fa-linkedin
+    a.social(href="https://rominamartin.github.io/", target="_new")
+      i.fab.fa-github
+    a.social(href="https://twitter.com/rominamartinlib", target="_new")
+      i.fab.fa-twitter
+    a.social(href="https://donatinghelps.com/", target="_new")
+      i.fas.fa-globe
+
+#content
+  h3= 'Select the donor blood type:'
+  #blood_selector
+    each type in BLOOD_TYPES
+      +bloodSelector(type)
+  #blood_content
+    .bar
+    .main_bag
+      .blood
+  #center_via_c
+    .center_via
+      .blood_via
+  #humans
+    each type, index in BLOOD_TYPES
+      if (index % 2)
+        +bloodTypeMixin(type, "right")
+      else
+        +bloodTypeMixin(type, "left")
